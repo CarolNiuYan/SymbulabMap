@@ -40,9 +40,10 @@ class ProjectReader
             File temp = listOfFiles[0];
     	    		String name = temp.getName();
     	    		String[] info = name.split("_");
+                        String type = info[0].substring(0,4);
     	    		double VTR = Double.parseDouble(info[1].substring(0, 8));
             
-    	    		File Result = new File("../result/mean_Hist_" + VTR + ".csv");
+    	    		File Result = new File("../result/mean_Hist_" + type + "_"+ VTR + ".csv");
             
             outputStream = new PrintWriter(new FileOutputStream(Result,false));
             outputStream.println("VTR,Evolution_Time,Hist_-1_-0.9,Hist_-0.9_-0.8,Hist_-0.8_-0.7,Hist_-0.7_-0.6,Hist_-0.6_-0.5,Hist_-0.5_-0.4,Hist_-0.4_-0.3,Hist_-0.3_-0.2,Hist_-0.2_-0.1,Hist_-0.1_0,Hist_0_0.1,Hist_0.1_0.2,Hist_0.2_0.3,Hist_0.3_0.4,Hist_0.4_0.5,Hist_0.5_0.6,Hist_0.6_0.7,Hist_0.7_0.8,Hist_0.8_0.9,Hist_0.9_1");
