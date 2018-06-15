@@ -32,7 +32,7 @@ class ProjectReader
         
         
         //change path!!!!!!!!
-        File Result = new File("../result/Result.csv");
+        File Result = new File("/Users/Aurora/Desktop/Symbulation/MAP/result/Result.csv");
         
         try
         {
