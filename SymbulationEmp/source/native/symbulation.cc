@@ -13,6 +13,7 @@ EMP_BUILD_CONFIG( SymConfigBase,
                  VALUE(VERTICAL_TRANSMISSION, double, 1, "Value 0 to 1 of probability of symbiont vertically transmitting when host reproduces"),
 		  VALUE(HOST_INT, double, 0, "Interaction value from -1 to 1 that hosts should have initially, -2 for random"),
 		  VALUE(SYM_INT, double, 0, "Interaction value from -1 to 1 that symbionts should have initially, -2 for random"),
+                  VALUE(WORLD_TYPE, int, 1, "Type of the world (1 for Mixed and 2 for Grid"),
                  VALUE(GRID_X, int, 5, "Width of the world"),
                  VALUE(GRID_Y, int, 5, "Height of world"),
                  VALUE(UPDATES, int, 1, "Number of updates to run before quitting"),
@@ -36,7 +37,7 @@ int main(int argc, char * argv[])
     if (args.TestUnknown() == false) exit(0); //Leftover args no good
 
     double numupdates = config.UPDATES();
-    double POP_SIZE = config.GRID_X() * config.GRID_Y();
+    double POP_SIZE = 10000;
     bool random_phen_host = false;
     bool random_phen_sym = false;
     if(config.HOST_INT() == -2) random_phen_host = true;
