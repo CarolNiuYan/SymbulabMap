@@ -37,7 +37,7 @@ int main(int argc, char * argv[])
     if (args.TestUnknown() == false) exit(0); //Leftover args no good
 
     double numupdates = config.UPDATES();
-    double POP_SIZE = 1000;
+    double POP_SIZE = 400;
     bool random_phen_host = false;
     bool random_phen_sym = false;
     if(config.HOST_INT() == -2) random_phen_host = true;
