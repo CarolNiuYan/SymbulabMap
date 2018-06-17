@@ -58,7 +58,7 @@ int main(int argc, char * argv[])
     for (size_t i = 0; i < POP_SIZE; i++){
       Symbiont new_sym; 
       Host *new_org;
-      if(random_phen_sym) new_sym = *(new Symbiont(random.GetDouble(-1, 0)));
+      if(random_phen_sym) new_sym = *(new Symbiont(random.GetDouble(0, 1)));
       else new_sym = *(new Symbiont(config.SYM_INT()));
       if (random_phen_host) new_org = new Host(random.GetDouble(-1, 1), new_sym);
       else new_org = new Host(config.HOST_INT(), new_sym);

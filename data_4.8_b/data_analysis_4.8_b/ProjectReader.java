@@ -89,8 +89,7 @@ class ProjectReader
 
 						// Create entries and print them to file
 						for(int a = 0; a < 10000; a++) {
-							DecimalFormat numberFormat = new DecimalFormat("#.00");
-							String output = role + VTR + "," + a * 10 + "," + numberFormat.format(data[a]);
+							String output = role + "," + VTR + "," + a * 10 + "," + data[a];
 						    outputStream.println(output);
 						}
 					}
