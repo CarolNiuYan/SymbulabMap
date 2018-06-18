@@ -37,7 +37,7 @@ int main(int argc, char * argv[])
     if (args.TestUnknown() == false) exit(0); //Leftover args no good
 
     double numupdates = config.UPDATES();
-    double POP_SIZE = 400;
+    double POP_SIZE = config.GRID_X() * config.GRID_Y();
     bool random_phen_host = false;
     bool random_phen_sym = false;
     if(config.HOST_INT() == -2) random_phen_host = true;
@@ -46,7 +46,7 @@ int main(int argc, char * argv[])
     emp::Random random(config.SEED());
         
     SymWorld world(random);
-    world.SetPopStruct_Mixed();
+    world.SetPopStruct_Grid(config.GRID_X(), config.GRID_Y());
     world.SetVertTrans(config.VERTICAL_TRANSMISSION());
     world.SetMutRate(config.MUTATION_RATE());
     //Set up files
