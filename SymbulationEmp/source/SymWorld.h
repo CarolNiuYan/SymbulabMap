@@ -111,7 +111,7 @@ class SymWorld : public emp::World<Host>{
   }
 
   double CalcSymIntVal(size_t i) {
-    //TODO: this should probably be a reference to Symbiont
+    //TODO: this should probably be a reference to Symbiont    
     return pop[i]->GetSymbiont().GetIntVal();
   }
 
@@ -139,7 +139,8 @@ class SymWorld : public emp::World<Host>{
 	       [this](size_t){
 		 data_node_symintval->Reset();
 		 for (size_t i = 0; i< pop.size(); i++) {
-		   if (IsOccupied(i)) data_node_symintval->AddDatum(CalcSymIntVal(i));
+                   // CHANGED: Check if the organism has a symbiont before adding the data
+		   if (IsOccupied(i) && pop[i]->HasSym()) data_node_symintval->AddDatum(CalcSymIntVal(i));
 		 }
 	       }
 	       );
@@ -160,14 +161,16 @@ class SymWorld : public emp::World<Host>{
   	   
       //Would like to shove reproduction into Process, but it gets sticky with Symbiont reproduction
       //Could put repro in Host process and population calls Symbiont process and places offspring as necessary?
+      if(pop[i]->HasSym())
       pop[i]->Process(random);
-  
-      //Check reproduction                                                                                                                              
+
+      
+      //Check reproduction
       if (pop[i]->GetPoints() >= 100 ) {  // host replication                                                                                                   
 	// will replicate & mutate a random offset from parent values
 	// while resetting resource points for host and symbiont to zero                                                                                
 	Symbiont *sym_baby;
-	if (pop[i]->HasSym() && WillTransmit()) { //Vertican transmission!  
+	if (pop[i]->HasSym() && WillTransmit()) { //Vertican transmission!
 	  sym_baby = new Symbiont(pop[i]->GetSymbiont().GetIntVal(), 0.0); //constructor that takes parent values                                             
 	  sym_baby->mutate(random, mut_rate);
 	  pop[i]->GetSymbiont().mutate(random, mut_rate); //mutate parent symbiont                                                                            
@@ -183,6 +186,7 @@ class SymWorld : public emp::World<Host>{
 	//TODO: is this how I did it for the dissertation? reset parent completely?
 	DoBirth(*host_baby, i); //Automatically deals with grid
       }
+      
       if (pop[i]->HasSym() && pop[i]->GetSymbiont().GetPoints() >= 100) {  
 	//TODO: check symbiont reproduction value
 	// symbiont reproduces independently (horizontal transmission) if it has >= 100 resources
@@ -203,7 +207,8 @@ class SymWorld : public emp::World<Host>{
 
 	  }
 	}
-      }
+      }                                                                                                                              
+ 
     }
   }
 

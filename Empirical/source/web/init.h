@@ -102,6 +102,7 @@ namespace emp {
   /// Stub for when Emscripten is not in use.
   static bool Initialize() {
     // Nothing to do here yet...
+    static_assert(false, "Emscripten web tools require emcc for compilation (for now).");
     return true;
   }
 
@@ -111,6 +112,12 @@ namespace emp {
     return true;
   }
 
+  namespace web {
+    inline std::string ToJSLiteral(bool x) {
+      if (x == true) return "true";
+      else return "false";
+    }
+  }
 
 }
 
