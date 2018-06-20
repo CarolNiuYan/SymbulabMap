@@ -6,7 +6,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class ReplaceFileContents {
-		   public void replace(int random_num) {
+    public void replace(int seed, double VTR) {
 			   
 			  // Change pathname according to computers
 		      String oldFileName = "./SymSettings.cfg";
@@ -20,7 +20,9 @@ public class ReplaceFileContents {
 		         String line;
 		         while ((line = br.readLine()) != null) {
 		            if (line.contains("SEED"))
-		               line = "set SEED " + random_num;
+		               line = "set SEED " + seed;
+                            else if (line.contains("VERTICAL_TRANSMISSION"))
+                                line = "set VERTICAL_TRANSMISSION " + VTR;
 		            bw.write(line+"\n");
 		         }
 		      } catch (Exception e) {
