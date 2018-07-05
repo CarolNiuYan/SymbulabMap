@@ -53,8 +53,8 @@ int main(int argc, char * argv[])
     world.SetMutRate(config.MUTATION_RATE());
     //Set up files
     world.SetupPopulationFile().SetTimingRepeat(10);
-    world.SetupHostIntValFile("HostVals"+to_string(config.SEED())+"_"+to_string(config.VERTICAL_TRANSMISSION())+".data").SetTimingRepeat(10);
-    world.SetupSymIntValFile("SymVals"+to_string(config.SEED())+"_"+to_string(config.VERTICAL_TRANSMISSION())+".data").SetTimingRepeat(10);
+    world.SetupHostIntValFile("HostVals_"+to_string(POP_SIZE)+"_"+to_string(config.SEED())+"_"+to_string(config.VERTICAL_TRANSMISSION())+".data").SetTimingRepeat(10);
+    world.SetupSymIntValFile("SymVals_"+to_string(POP_SIZE)+"_"+to_string(config.SEED())+"_"+to_string(config.VERTICAL_TRANSMISSION())+".data").SetTimingRepeat(10);
 
     //inject organisms
     for (size_t i = 0; i < POP_SIZE; i++){
