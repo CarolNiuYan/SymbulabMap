@@ -31,7 +31,10 @@ class SymWorld : public emp::World<Host>{
 
 
   bool WillTransmit() {
-    if (random.GetDouble(0.0, 1.0) <= vertTrans) {
+    double transmit = random.GetDouble(0.0, 1.0);
+    //std::cout << transmit << std::endl;
+    if (transmit < vertTrans) {
+      std::cout << "Will transmit" << std::endl;
       return true;
     }  else {
       return false;
@@ -161,16 +164,16 @@ class SymWorld : public emp::World<Host>{
   	   
       //Would like to shove reproduction into Process, but it gets sticky with Symbiont reproduction
       //Could put repro in Host process and population calls Symbiont process and places offspring as necessary?
-      if(pop[i]->HasSym())
       pop[i]->Process(random);
 
       
       //Check reproduction
-      if (pop[i]->GetPoints() >= 100 ) {  // host replication                                                                                                   
+      if (pop[i]->GetPoints() >= 1000) {  // host replication                                                                                                   
 	// will replicate & mutate a random offset from parent values
 	// while resetting resource points for host and symbiont to zero                                                                                
 	Symbiont *sym_baby;
 	if (pop[i]->HasSym() && WillTransmit()) { //Vertican transmission!
+          std::cout << "Vertical transmission" << std::endl;
 	  sym_baby = new Symbiont(pop[i]->GetSymbiont().GetIntVal(), 0.0); //constructor that takes parent values                                             
 	  sym_baby->mutate(random, mut_rate);
 	  pop[i]->GetSymbiont().mutate(random, mut_rate); //mutate parent symbiont                                                                            
