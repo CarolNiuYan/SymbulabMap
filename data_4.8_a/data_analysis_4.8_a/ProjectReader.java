@@ -74,7 +74,9 @@ class ProjectReader
 								while(inputStream.hasNextLine()) {
 									read = inputStream.nextLine();
 									String[] fragments = read.split(",");
-									data[x] += Double.parseDouble(fragments[1]);
+									if (!fragments[1].equals("nan") && !fragments[1].equals("-nan")){
+									    data[x] += Double.parseDouble(fragments[1]);
+									}
 									x++;
 								}
 							}

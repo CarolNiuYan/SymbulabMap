@@ -26,6 +26,8 @@ class ProjectReader
         String read = null;
         //create a file for the information that we want
         
+        String[] interval_names = {"-1_-.9","-.9_-.8","-.8_-.7","-.7_-.6","-.6_-.5","-.5_-.4","-.4_-.3","-.3_-.2","-.2_-.1","-.1_0","0_.1",".1_.2",".2_.3",".3_.4",".4_.5",".5_.6",".6_.7",".7_.8",".8_.9",".9_1"};
+        
         try
             {
                 //read the file names and read SEED and VTR
@@ -36,14 +38,13 @@ class ProjectReader
                 File Result = new File("../result_4.7/mean_Hist_4.7.csv");
             
                 outputStream = new PrintWriter(new FileOutputStream(Result,false));
-                outputStream.println("VTR,Evolution_Time,Hist_-1_-0.9,Hist_-0.9_-0.8,Hist_-0.8_-0.7,Hist_-0.7_-0.6,Hist_-0.6_-0.5,Hist_-0.5_-0.4,Hist_-0.4_-0.3,Hist_-0.3_-0.2,Hist_-0.2_-0.1,Hist_-0.1_0,Hist_0_0.1,Hist_0.1_0.2,Hist_0.2_0.3,Hist_0.3_0.4,Hist_0.4_0.5,Hist_0.5_0.6,Hist_0.6_0.7,Hist_0.7_0.8,Hist_0.8_0.9,Hist_0.9_1,Total_Count");
-            
+                outputStream.println("VTR,Evolution_Time,Interval,Hist_Count");
                
             
                 // Prints an entry for each file in the directory
                 for(int dir = 0; dir < listOfFolders.length; dir++) {
                     
-                    //Get inside folder and retrive files
+                    //Get inside folder and retrieve files
                     File[] listOfFiles = listOfFolders[dir].listFiles();
 
                     double VTR = Double.parseDouble(listOfFolders[dir].getName());
@@ -86,22 +87,10 @@ class ProjectReader
             
                     // Create entries and print them to file
                     for(int a = 0; a < 10000; a++) {
-                        String hist_num = "";
-                        double cur_sum = 0.0;
                         for (int b = 0; b < 20; b++) {
-                            DecimalFormat numberFormat = new DecimalFormat("#.00");
-                            cur_sum += data[b][a];
-                            if(data[b][a] != 0) {
-                                hist_num += numberFormat.format(data[b][a]);
-                            }else {
-                                hist_num += data[b][a];
-                            }
-                            if (b != 19) {
-                                hist_num += ",";
-                            }
+                            String output = VTR + "," + a * 10 + "," + interval_names[b] + "," + data[b][a];
+                            outputStream.println(output);
                         }
-                        String output = VTR + "," + a * 10 + "," + hist_num + "," + cur_sum;
-                        outputStream.println(output);
                     }
                 }
                 outputStream.close();

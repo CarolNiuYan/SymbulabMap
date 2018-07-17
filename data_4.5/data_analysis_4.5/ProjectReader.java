@@ -25,6 +25,10 @@ class ProjectReader
         PrintWriter outputStream = null;
         String read = null;
         //create a file for the information that we want
+
+	String[] interval_names = {"-1_-.9","-.9_-.8","-.8_-.7","-.7_-.6","-.6_-.5","-.5_-.4","-.4_-.3","-.3_-.2","-.2_-.1","-.1_0","0_.1",".1_.2",".2_.3",".3_.4",".4_.5",".5_.6",".6_.7",".7_.8",".8_.9",".9_1"};
+
+	File Result = new File("../result_4.5/mean_Hist_4.5.csv");
         
         try
             {
@@ -32,11 +36,8 @@ class ProjectReader
                 File folder = new File(directory_name);
                 File[] listOfFiles = folder.listFiles();
             
-            
-                File Result = new File("../result_4.5/mean_Hist_4.5.csv");
-            
                 outputStream = new PrintWriter(new FileOutputStream(Result,false));
-                outputStream.println("Seed,Evolution_Time,Hist_-1_-0.9,Hist_-0.9_-0.8,Hist_-0.8_-0.7,Hist_-0.7_-0.6,Hist_-0.6_-0.5,Hist_-0.5_-0.4,Hist_-0.4_-0.3,Hist_-0.3_-0.2,Hist_-0.2_-0.1,Hist_-0.1_0,Hist_0_0.1,Hist_0.1_0.2,Hist_0.2_0.3,Hist_0.3_0.4,Hist_0.4_0.5,Hist_0.5_0.6,Hist_0.6_0.7,Hist_0.7_0.8,Hist_0.8_0.9,Hist_0.9_1,Total_Count");
+                outputStream.println("Seed,Evolution_Time,Interval,Hist_Count");
 
                 for(int i = 0; i < listOfFiles.length; i++){
                     if (listOfFiles[i].isFile())
@@ -47,7 +48,7 @@ class ProjectReader
 
                             String name = f.getName();
                             String[] name_fragments = name.split("_");
-                            double seed = Double.parseDouble(name_fragments[0].substring(7));
+                            double seed = Double.parseDouble(name_fragments[2]);
                             DecimalFormat numberFormat = new DecimalFormat("#.00");
                             numberFormat.format(seed);
                     
@@ -58,13 +59,12 @@ class ProjectReader
                             while(inputStream.hasNextLine()) {
                                 read = inputStream.nextLine();
                                 String[] fragments = read.split(",");
-                                String output = "";
-                                for (int j = 0; j < fragments.length; j++) {
-                                    if (j != 1) {
-                                        output = output + "," + fragments[j];
-                                    }
+                                for (int j = 0; j < 20; j++) {
+				    String output = seed + "," + fragments[0] + ",";
+				    output = output + interval_names[j] + "," + fragments[j+2];
+				    outputStream.print(output);
+				    outputStream.print("\n");
                                 }
-                                outputStream.println(seed + output);
                             }
                         }
                 }
