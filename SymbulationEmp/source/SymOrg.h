@@ -9,7 +9,7 @@ class Symbiont {
  private:  
   double interaction_val;
   double points;
-  std::set<int> res_types;
+  std::set<int> res_types; // The parameter res_types is not used in this program. It is here as a potential feature.
 
 
  public:
@@ -32,7 +32,6 @@ class Symbiont {
   void AddPoints(double _in) { points += _in;}
   void SetResTypes(std::set<int> _in) {res_types = _in;}
 
-  //TODO: change everything to camel case
   void mutate(emp::Random &random, double mut_rate){
     interaction_val += random.GetRandNormal(0.0, mut_rate);
     if(interaction_val < -1) interaction_val = -1;
@@ -41,6 +40,7 @@ class Symbiont {
 
 };
 
+/* This function is mainly for debugging purpose. It is not called anywhere in this program. */
 std::string PrintSym(Symbiont  org){
   if (org.GetPoints() < 0) return "-";
   double out_val = org.GetIntVal();  
@@ -59,14 +59,14 @@ class Host {
  private:
   double interaction_val;
   Symbiont sym;
-  std::set<int> res_types;
+  std::set<int> res_types; // Again, res_types is a potential feature. This parameter is not used in this program.
   double points;
 
  public:
+  // Default constructor for the host class. Each host created from this constructor will have a fake symbiont that has an interaction value of 0 and points of -1.
  Host(double _intval =0.0, Symbiont _sym = *(new Symbiont(0, -1)), std::set<int> _set = std::set<int>(), double _points = 0.0) : interaction_val(_intval), sym(_sym), res_types(_set), points(_points) { ; }
   Host(const Host &) = default;
   Host(Host &&) = default;
-  // Host() : interaction_val(0), sym(*(new Symbiont(0, -1))), res_types(std::set<int>()), points(0) { ; }
 
 
   Host & operator=(const Host &) = default;
@@ -124,8 +124,7 @@ class Host {
   }
   
   void DistribResources(int resources, double synergy) { 
-    // might want to declare a remainingResources variable just to make this easier to maintain
-    double hostIntVal = interaction_val; //using private variable because we can
+    double hostIntVal = interaction_val;
     double symIntVal = sym.GetIntVal();
     
     double hostPortion = 0.0;
@@ -199,7 +198,6 @@ class Host {
 
   void Process(emp::Random &random) {
     //Currently just wrapping to use the existing function
-    //TODO: make the below config options
     DistribResources(100, 5); 
 
   }
@@ -207,6 +205,7 @@ class Host {
 
 };
 
+// This function is primarily for debugging purpose and is not called anywhere in this program.
 std::string PrintHost(Host * org) {
   if (!org) return "-/-";
   
