@@ -14,6 +14,7 @@ header = "#!/bin/bash -login\n\n#PBS -l walltime=01:30:00\n#PBS -l nodes=1:ppn=1
 
 def replace(file_path, VTR, seed):
         # Create a new configuration file in order to feed it as argument to the symbulation program. Replace 0.0 with the vertical transmission rate that we are currently testing.
+        # "configs" is the name of the directory that I manually created for holding temporary configruation files. You might want to also create a directory and use its path here.
 	fh = '/mnt/home/f0005303/test_pop_size/SymbulationEmp/configs/TempSettings_'+str(seed)+'_'+str(VTR)+'_'+str(40000)+'.cfg'
 	with open(fh, 'w') as new_file:
 		with open(file_path) as old_file:
